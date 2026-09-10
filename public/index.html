@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diary Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <h1>Diary Pro</h1>
+                <span class="badge"><i class="fas fa-check-circle"></i> Cloud Updated</span>
+            </div>
+            <button class="btn-system"><i class="fas fa-th-large"></i> Hệ thống <i class="fas fa-chevron-down"></i></button>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab active"><i class="fas fa-user"></i> Cá nhân</button>
+            <button class="tab"><i class="fas fa-list-check"></i> Công việc</button>
+            <button class="tab"><i class="fas fa-calendar-alt"></i> Lịch họp</button>
+            <button class="tab"><i class="fas fa-book"></i> English</button>
+            <button class="tab"><i class="fas fa-bookmark"></i> apg</button>
+        </nav>
+
+        <main class="main-content">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Tìm kiếm theo nội dung hoặc ngày (VD: 2026-03)...">
+            </div>
+
+            <div class="form-group row">
+                <div class="col">
+                    <input type="date" id="entryDate">
+                </div>
+                <div class="col">
+                    <select id="entryStatus">
+                        <option value="Đang thực hiện">🟡 Đang thực hiện</option>
+                        <option value="Hoàn thành">🟢 Hoàn thành</option>
+                        <option value="Tạm dừng">🔴 Tạm dừng</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <textarea id="entryContent" placeholder="Hôm nay bạn thế nào?"></textarea>
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="entryLink" placeholder="Link ảnh/video...">
+            </div>
+
+            <button id="btnSaveSync" class="btn-primary">
+                <i class="fas fa-cloud-upload-alt"></i> LƯU & ĐỒNG BỘ CLOUD
+            </button>
+
+            <div class="button-row">
+                <button id="btnSync" class="btn-outline"><i class="fas fa-sync-alt"></i> Đồng bộ Cloud</button>
+                <button id="btnExport" class="btn-outline"><i class="fas fa-file-export"></i> Xuất JSON</button>
+                <button id="btnImport" class="btn-outline"><i class="fas fa-file-import"></i> Nhập JSON</button>
+            </div>
+
+            <div class="bottom-controls">
+                <select>
+                    <option>Tất cả thời gian</option>
+                    <option>Hôm nay</option>
+                    <option>Tuần này</option>
+                </select>
+                <button class="btn-outline">Đặt lại</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
