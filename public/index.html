@@ -3,77 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diary Pro</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Diary Pro - SAT-COORD CMS</title>
+
+    <!-- Tailwind CSS (cho sidebar) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap 5 (cho phần Diary Pro) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-container">
-        <header class="header">
-            <div class="logo">
-                <i class="fas fa-book-open"></i>
-                <h1>Diary Pro</h1>
-                <span class="badge"><i class="fas fa-check-circle"></i> Cloud Updated</span>
-            </div>
-            <button class="btn-system"><i class="fas fa-th-large"></i> Hệ thống <i class="fas fa-chevron-down"></i></button>
-        </header>
 
-        <nav class="tabs">
-            <button class="tab active"><i class="fas fa-user"></i> Cá nhân</button>
-            <button class="tab"><i class="fas fa-list-check"></i> Công việc</button>
-            <button class="tab"><i class="fas fa-calendar-alt"></i> Lịch họp</button>
-            <button class="tab"><i class="fas fa-book"></i> English</button>
-            <button class="tab"><i class="fas fa-bookmark"></i> apg</button>
+<!-- BỐ CỤC: SIDEBAR + MAIN -->
+<div class="layout-wrapper">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand">
+                <i class="fa-solid fa-satellite-dish"></i>
+                <span>SAT-COORD CMS</span>
+            </div>
+            <p class="brand-sub">Vietnam Strategic Advisor</p>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-group">Nghiệp vụ chính</div>
+
+            <a href="/lichhop" class="nav-item">
+                <i class="fa-solid fa-calendar-day"></i>
+                <span>Lịch họp & Timeline</span>
+            </a>
+
+            <a href="/" class="nav-item nav-item-active">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="/finance" class="nav-item">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>Tài chính (Credit)</span>
+            </a>
+
+            <div class="nav-group">Hỗ trợ & Tiếng Anh</div>
+
+            <a href="/english-mem" class="nav-item">
+                <i class="fa-solid fa-language"></i>
+                <span>Từ vựng chuyên ngành</span>
+            </a>
+
+            <a href="/admin" target="_blank" class="nav-item nav-item-admin">
+                <i class="fa-solid fa-user-gear"></i>
+                <span>Hệ thống Admin</span>
+            </a>
         </nav>
 
-        <main class="main-content">
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Tìm kiếm theo nội dung hoặc ngày (VD: 2026-03)...">
-            </div>
-
-            <div class="form-group row">
-                <div class="col">
-                    <input type="date" id="entryDate">
-                </div>
-                <div class="col">
-                    <select id="entryStatus">
-                        <option value="Đang thực hiện">🟡 Đang thực hiện</option>
-                        <option value="Hoàn thành">🟢 Hoàn thành</option>
-                        <option value="Tạm dừng">🔴 Tạm dừng</option>
-                    </select>
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar" id="user-avatar">CU</div>
+                <div class="user-details">
+                    <p class="user-name" id="user-name">cuong</p>
+                    <p class="user-role">Chuyên gia Cao cấp</p>
                 </div>
             </div>
-
-            <div class="form-group">
-                <textarea id="entryContent" placeholder="Hôm nay bạn thế nào?"></textarea>
-            </div>
-
-            <div class="form-group">
-                <input type="text" id="entryLink" placeholder="Link ảnh/video...">
-            </div>
-
-            <button id="btnSaveSync" class="btn-primary">
-                <i class="fas fa-cloud-upload-alt"></i> LƯU & ĐỒNG BỘ CLOUD
+            <button class="logout-btn" onclick="alert('Đăng xuất')">
+                <i class="fa-solid fa-power-off"></i>
             </button>
+        </div>
+    </aside>
 
-            <div class="button-row">
-                <button id="btnSync" class="btn-outline"><i class="fas fa-sync-alt"></i> Đồng bộ Cloud</button>
-                <button id="btnExport" class="btn-outline"><i class="fas fa-file-export"></i> Xuất JSON</button>
-                <button id="btnImport" class="btn-outline"><i class="fas fa-file-import"></i> Nhập JSON</button>
+    <!-- ============ MAIN CONTENT ============ -->
+    <main class="main-content">
+        <div class="app-container">
+
+            <!-- HEADER -->
+            <div class="app-header">
+                <div class="header-top">
+                    <h3 class="app-title">
+                        <i class="fa fa-book-reader"></i>
+                        <span>Diary Pro</span>
+                        <span id="sync-status" class="server-indicator"></span>
+                    </h3>
+
+                    <div class="dropdown">
+                        <button class="btn-system" type="button" onclick="toggleDropdown(event)">
+                            <i class="fa fa-th-large"></i> Hệ thống <i class="fa fa-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-menu-custom" id="dropdown-menu">
+                            <li class="dropdown-header-custom">Công cụ & Quản lý</li>
+                            <li><a href="#"><i class="fa fa-check-square text-success"></i> Việc cần làm</a></li>
+                            <li><a href="#"><i class="fa fa-language text-info"></i> Học từ vựng 2</a></li>
+                            <li><a href="#"><i class="fa fa-book text-warning"></i> Sổ tay học tập</a></li>
+                            <li><a href="#"><i class="fa fa-quote-left text-muted"></i> Recording</a></li>
+                            <li><a href="#"><i class="fa fa-headphones text-muted"></i> Listening</a></li>
+                            <li><a href="#"><i class="fa fa-address-book text-muted"></i> Danh bạ</a></li>
+                            <li class="dropdown-divider-custom"></li>
+                            <li><a href="#" class="text-danger" onclick="clearAllData()"><i class="fa fa-trash-alt"></i> Xóa sạch dữ liệu máy</a></li>
+                            <li><a href="#" class="text-primary fw-bold" onclick="backupToServer()"><i class="fa fa-cloud-upload-alt"></i> Sao lưu lên Cloud</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- TABS -->
+                <ul class="tabs-nav">
+                    <li>
+                        <button class="tab-btn tab-active" id="tab-ca-nhan" onclick="switchMode('ca_nhan')">
+                            <i class="fa fa-user-circle"></i> <span>Cá nhân</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="tab-btn" id="tab-cong-viec" onclick="switchMode('cong_viec')">
+                            <i class="fa fa-tasks"></i> <span>Công việc</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="tab-btn" onclick="location.href='/lichhop'">
+                            <i class="fa fa-calendar-alt"></i> <span>Lịch họp</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="tab-btn" onclick="location.href='/english-mem'">
+                            <i class="fa fa-book"></i> <span>English</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="tab-btn" onclick="location.href='/apg'">
+                            <i class="fa fa-bookmark"></i> <span>apg</span>
+                        </button>
+                    </li>
+                </ul>
             </div>
 
-            <div class="bottom-controls">
-                <select>
-                    <option>Tất cả thời gian</option>
-                    <option>Hôm nay</option>
-                    <option>Tuần này</option>
-                </select>
-                <button class="btn-outline">Đặt lại</button>
+            <!-- SEARCH -->
+            <div class="search-box">
+                <i class="fa fa-search"></i>
+                <input type="text" id="search-input" class="form-control" placeholder="Tìm kiếm theo nội dung hoặc ngày (VD: 2026-03)..." oninput="renderUI()">
             </div>
-        </main>
-    </div>
 
-    <script src="app.js"></script>
+            <!-- FORM -->
+            <div class="form-section">
+                <div class="row g-2">
+                    <div class="col-md-4"><input type="date" id="input-date" class="form-control"></div>
+                    <div class="col-md-8">
+                        <select id="input-status" class="form-control">
+                            <option value="dang_lam">🟡 Đang thực hiện</option>
+                            <option value="hoan_thanh">🟢 Đã hoàn thành</option>
+                        </select>
+                    </div>
+                </div>
+                <textarea id="input-content" class="form-control" rows="4" placeholder="Hôm nay bạn thế nào?"></textarea>
+                <input type="text" id="input-link" class="form-control" placeholder="Link ảnh/video...">
+                <button class="btn-main" id="btn-save" onclick="handleSaveAction()">
+                    <i class="fa fa-cloud-upload-alt me-2"></i>LƯU & ĐỒNG BỘ CLOUD
+                </button>
+
+                <div class="row g-2 mt-2">
+                    <div class="col-4"><button class="btn btn-outline-primary btn-tool w-100" onclick="fetchDataFromServer()"><i class="fa fa-sync"></i> Đồng bộ Cloud</button></div>
+                    <div class="col-4"><button class="btn btn-outline-info btn-tool w-100" onclick="exportToJSON()"><i class="fa fa-file-export"></i> Xuất JSON</button></div>
+                    <div class="col-4">
+                        <button class="btn btn-outline-secondary btn-tool w-100" onclick="document.getElementById('file-input').click()"><i class="fa fa-file-import"></i> Nhập JSON</button>
+                        <input type="file" id="file-input" style="display:none" onchange="importFromJSON(this)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- FILTER -->
+            <div class="filter-section">
+                <div class="filter-row">
+                    <select id="filter-time" class="form-select form-select-sm" onchange="toggleFilterUI()">
+                        <option value="all">📅 Tất cả thời gian</option>
+                        <option value="today">Hôm nay</option>
+                        <option value="week">Tuần này</option>
+                        <option value="month_quick">📍 Chọn Tháng/Năm</option>
+                        <option value="year_current">Năm nay</option>
+                        <option value="range">📅 Theo giai đoạn...</option>
+                    </select>
+
+                    <div id="quick-month-year" class="d-none filter-inline">
+                        <select id="filter-month" class="form-select form-select-sm" onchange="renderUI()">
+                            <option value="0">Tháng 1</option><option value="1">Tháng 2</option><option value="2">Tháng 3</option>
+                            <option value="3">Tháng 4</option><option value="4">Tháng 5</option><option value="5">Tháng 6</option>
+                            <option value="6">Tháng 7</option><option value="7">Tháng 8</option><option value="8">Tháng 9</option>
+                            <option value="9">Tháng 10</option><option value="10">Tháng 11</option><option value="11">Tháng 12</option>
+                        </select>
+                        <input type="number" id="filter-year" class="form-control form-control-sm" onchange="renderUI()">
+                    </div>
+
+                    <div id="date-range-inputs" class="d-none filter-inline">
+                        <input type="date" id="start-date" class="form-control form-control-sm" onchange="renderUI()">
+                        <span class="small">-</span>
+                        <input type="date" id="end-date" class="form-control form-control-sm" onchange="renderUI()">
+                    </div>
+
+                    <button class="btn btn-sm btn-outline-secondary" onclick="resetFilter()">Đặt lại</button>
+                </div>
+            </div>
+
+            <!-- LIST -->
+            <div id="data-list" class="p-3"></div>
+        </div>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="app.js"></script>
+<script>
+    // Toggle dropdown hệ thống
+    function toggleDropdown(e) {
+        e.stopPropagation();
+        document.getElementById('dropdown-menu').classList.toggle('show');
+    }
+    document.addEventListener('click', function(e) {
+        const menu = document.getElementById('dropdown-menu');
+        if (menu && !menu.contains(e.target)) menu.classList.remove('show');
+    });
+</script>
+
 </body>
 </html>
