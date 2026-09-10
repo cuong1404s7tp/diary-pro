@@ -89,6 +89,30 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', time: new Date().toISOString() });
 });
 
+// ============================================
+// ROUTES CHO CÁC TRANG CON
+// ============================================
+app.get('/danhba', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'danhba.html'));
+});
+
+app.get('/lichhop', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/finance', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/english-mem', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+
 app.listen(PORT, () => {
     console.log('🚀 Server chạy tại http://localhost:' + PORT);
     console.log('📊 Supabase URL:', SUPABASE_URL);
