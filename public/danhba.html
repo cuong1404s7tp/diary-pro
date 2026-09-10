@@ -2,41 +2,44 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Danh bạ nội bộ - SAT-COORD CMS</title>
 
-    <!-- Tailwind (cho sidebar) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Font Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #f4f7fb;
-            color: #333;
-            min-height: 100vh;
+        :root {
+            --sidebar-width: 260px;
+            --primary: #0d47a1;
+            --primary-light: #1976d2;
+            --bg: #f4f7fb;
         }
 
-        /* ===== SIDEBAR ===== */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: var(--bg);
+            color: #333;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ============ SIDEBAR ============ */
         .sidebar {
-            width: 260px;
+            width: var(--sidebar-width);
             background-color: #0f172a;
             color: #cbd5e1;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
             position: fixed;
             top: 0;
             left: 0;
             height: 100vh;
-            z-index: 20;
+            z-index: 100;
+            transition: width 0.3s ease;
         }
 
         .sidebar-header {
@@ -54,10 +57,7 @@
             letter-spacing: -0.5px;
         }
 
-        .brand i {
-            font-size: 24px;
-            color: #3b82f6;
-        }
+        .brand i { font-size: 24px; color: #3b82f6; }
 
         .brand-sub {
             font-size: 10px;
@@ -101,15 +101,9 @@
             margin-bottom: 4px;
         }
 
-        .nav-item i {
-            width: 20px;
-            text-align: center;
-        }
+        .nav-item i { width: 20px; text-align: center; }
 
-        .nav-item:hover {
-            background-color: #1e293b;
-            color: white;
-        }
+        .nav-item:hover { background-color: #1e293b; color: white; }
 
         .nav-item-active {
             background-color: #2563eb;
@@ -152,11 +146,12 @@
 
         .logout-btn:hover { color: #f87171; }
 
-        /* ===== MAIN CONTENT ===== */
+        /* ============ MAIN ============ */
         .main-content {
-            margin-left: 260px;
+            margin-left: var(--sidebar-width);
             padding: 24px;
             min-height: 100vh;
+            transition: margin-left 0.3s ease;
         }
 
         .page-header {
@@ -170,25 +165,60 @@
 
         .page-title {
             margin: 0;
-            color: #0d47a1;
+            color: var(--primary);
             font-size: 28px;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
+        .page-title i {
+            font-size: 32px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Info card */
         .info-card {
-            background: white;
+            background: linear-gradient(135deg, #ffffff, #f8fbff);
             border-radius: 12px;
-            padding: 16px;
+            padding: 16px 20px;
             margin-bottom: 20px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .info-card-main {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             font-weight: 600;
-            color: #0d47a1;
+            color: var(--primary);
             font-size: 15px;
         }
 
+        .info-card-main i {
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .info-card-stats {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .info-card-stats span strong { color: var(--primary); }
+
+        /* Controls */
         .controls {
             background: white;
             border-radius: 12px;
@@ -200,63 +230,146 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
 
-        .controls input,
-        .controls select {
+        .search-wrapper {
+            position: relative;
+            flex: 2;
+            min-width: 250px;
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .controls input, .controls select {
             border: 1px solid #d0d7de;
             border-radius: 8px;
             padding: 11px 14px;
             font-size: 14px;
             outline: none;
-            transition: border-color 0.2s;
+            font-family: inherit;
+            transition: all 0.2s;
+            width: 100%;
         }
 
-        .controls input:focus,
-        .controls select:focus {
-            border-color: #0d47a1;
+        .search-wrapper input {
+            padding-left: 40px;
         }
 
-        .controls input { flex: 2; min-width: 250px; }
-        .controls select { flex: 1; min-width: 220px; }
+        .controls input:focus, .controls select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1);
+        }
 
+        .controls select { flex: 1; min-width: 200px; cursor: pointer; }
+
+        /* Table */
         .table-container {
             background: white;
             border-radius: 12px;
             overflow: hidden;
-            overflow-x: auto;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
 
-        table { width: 100%; border-collapse: collapse; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-        th {
-            background: #0d47a1;
+        thead th {
+            background: var(--primary);
             color: white;
             padding: 14px 12px;
             text-align: left;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
         }
 
-        td {
+        thead th:hover { background: #0a3d8f; }
+        thead th i { margin-left: 6px; opacity: 0.5; font-size: 10px; }
+
+        tbody td {
             padding: 12px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #f1f5f9;
             font-size: 14px;
+            vertical-align: middle;
         }
 
-        tr:hover { background: #f5f9ff; }
-        tr:last-child td { border-bottom: none; }
+        tbody tr { transition: background 0.15s; }
+        tbody tr:hover { background: #f5f9ff; }
+        tbody tr:last-child td { border-bottom: none; }
 
-        a {
-            color: #0d47a1;
+        .contact-name {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .contact-dept {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .contact-title {
+            color: #475569;
+            font-size: 13px;
+        }
+
+        .phone-link, .email-link {
+            color: var(--primary);
             text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        a:hover { text-decoration: underline; }
+        .phone-link:hover, .email-link:hover {
+            color: var(--primary-light);
+            text-decoration: underline;
+        }
 
-        .loading { text-align: center; padding: 40px; color: #999; }
+        .phone-link i { font-size: 11px; opacity: 0.6; }
 
-        /* Responsive */
+        /* Avatar initials */
+        .avatar {
+            display: inline-flex;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+            margin-right: 10px;
+            vertical-align: middle;
+            flex-shrink: 0;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #94a3b8;
+        }
+
+        .loading i { font-size: 32px; margin-bottom: 12px; }
+
+        /* ============ MOBILE ============ */
         @media (max-width: 768px) {
+            :root { --sidebar-width: 0px; }
+
             .sidebar { width: 70px; }
             .sidebar-header .brand span,
             .sidebar-header .brand-sub,
@@ -264,14 +377,143 @@
             .nav-item span,
             .user-details { display: none; }
             .sidebar-header { padding: 16px 8px; }
-            .nav-item { justify-content: center; padding: 12px 8px; }
+            .nav-item { justify-content: center; padding: 14px 8px; }
             .sidebar-footer { justify-content: center; }
             .logout-btn { display: none; }
 
-            .main-content { margin-left: 70px; padding: 12px; }
+            .main-content {
+                margin-left: 70px;
+                padding: 12px;
+            }
+
             .page-title { font-size: 20px; }
-            .controls { flex-direction: column; }
-            .controls input, .controls select { width: 100%; }
+            .page-title i { font-size: 24px; }
+
+            .info-card {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 14px;
+            }
+
+            .info-card-stats {
+                font-size: 12px;
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+
+            .controls {
+                flex-direction: column;
+                padding: 12px;
+            }
+
+            .search-wrapper { min-width: unset; }
+            .controls input, .controls select { min-width: unset; }
+
+            /* Convert table to cards */
+            .table-container {
+                background: transparent;
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            thead { display: none; }
+
+            tbody tr {
+                background: white;
+                border-radius: 12px;
+                padding: 16px;
+                margin-bottom: 12px;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+                border-left: 4px solid var(--primary);
+                position: relative;
+            }
+
+            tbody tr:hover { background: white; }
+
+            tbody td {
+                border: none;
+                padding: 6px 0;
+                display: flex;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            tbody td:before {
+                font-weight: 700;
+                color: var(--primary);
+                font-size: 11px;
+                text-transform: uppercase;
+                min-width: 90px;
+                flex-shrink: 0;
+                padding-top: 3px;
+            }
+
+            tbody td:nth-child(1):before { content: "Họ tên"; }
+            tbody td:nth-child(2):before { content: "Phòng ban"; }
+            tbody td:nth-child(3):before { content: "Chức danh"; }
+            tbody td:nth-child(4):before { content: "Điện thoại"; }
+            tbody td:nth-child(5):before { content: "Email"; }
+
+            tbody td:nth-child(1) {
+                font-size: 16px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #f1f5f9;
+                margin-bottom: 6px;
+            }
+
+            tbody td:nth-child(1):before { display: none; }
+
+            .avatar {
+                width: 36px;
+                height: 36px;
+                font-size: 14px;
+            }
+
+            .phone-link, .email-link {
+                font-size: 13px;
+                word-break: break-all;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content { padding: 8px; }
+            .page-title { font-size: 18px; }
+            tbody tr { padding: 12px; }
+            tbody td:before {
+                min-width: 80px;
+                font-size: 10px;
+            }
+        }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(13, 71, 161, 0.4);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.2s;
+            z-index: 50;
+        }
+
+        .back-to-top.show { display: flex; }
+        .back-to-top:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -348,11 +590,17 @@
     </div>
 
     <div class="info-card" id="status">
-        <i class="fa-solid fa-spinner fa-spin"></i> Đang tải dữ liệu...
+        <div class="info-card-main">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <span>Đang tải dữ liệu...</span>
+        </div>
     </div>
 
     <div class="controls">
-        <input type="text" id="searchInput" placeholder="Tìm kiếm theo tên, phòng ban, chức vụ, điện thoại, email...">
+        <div class="search-wrapper">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Tìm theo tên, phòng ban, chức vụ, SĐT, email...">
+        </div>
         <select id="departmentFilter">
             <option value="">-- Tất cả phòng ban --</option>
         </select>
@@ -362,17 +610,18 @@
         <table id="contactsTable">
             <thead>
                 <tr>
-                    <th>Họ và tên</th>
-                    <th>Đơn vị / Phòng ban</th>
-                    <th>Chức danh</th>
-                    <th>Số điện thoại</th>
+                    <th onclick="sortBy('name')">Họ và tên <i class="fa-solid fa-sort"></i></th>
+                    <th onclick="sortBy('dept')">Đơn vị / Phòng ban <i class="fa-solid fa-sort"></i></th>
+                    <th onclick="sortBy('title')">Chức danh <i class="fa-solid fa-sort"></i></th>
+                    <th onclick="sortBy('phone')">Số điện thoại <i class="fa-solid fa-sort"></i></th>
                     <th>Email</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td colspan="5" class="loading">
-                        <i class="fa-solid fa-spinner fa-spin"></i> Đang tải dữ liệu...
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                        <div>Đang tải dữ liệu...</div>
                     </td>
                 </tr>
             </tbody>
@@ -380,152 +629,190 @@
     </div>
 </main>
 
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="fa-solid fa-arrow-up"></i>
+</button>
+
 <script>
 // ============================================
-// LOGIC GIỮ NGUYÊN 100% TỪ danh_ba.html GỐC
+// DATA URL
 // ============================================
-const DATA_URL =
-"https://raw.githubusercontent.com/cuong1404s7tp/danhba-noibo/refs/heads/main/danh_ba_phong_ban_chuan.json";
+const DATA_URL = "https://raw.githubusercontent.com/cuong1404s7tp/danhba-noibo/refs/heads/main/danh_ba_phong_ban_chuan.json";
 
 let contacts = [];
 let departments = [];
+let currentFiltered = [];
+let sortField = null;
+let sortAsc = true;
 
+// ============================================
+// LOAD DATA
+// ============================================
 async function loadData() {
     try {
         const response = await fetch(DATA_URL);
-        if (!response.ok) {
-            throw new Error("Không tải được dữ liệu");
-        }
+        if (!response.ok) throw new Error("Không tải được dữ liệu");
 
         contacts = await response.json();
-
         detectDepartments();
         populateDepartments();
-        renderTable(contacts);
+        applyFilter();
 
-        document.getElementById("status").innerHTML =
-            "📊 Tổng số liên hệ: <strong>" + contacts.length + "</strong>";
-    }
-    catch (error) {
+        document.getElementById("status").innerHTML = `
+            <div class="info-card-main">
+                <i class="fa-solid fa-address-book"></i>
+                <span>Tổng số liên hệ: <strong>${contacts.length}</strong></span>
+            </div>
+            <div class="info-card-stats">
+                <span><i class="fa-solid fa-building"></i> <strong>${departments.length}</strong> phòng ban</span>
+            </div>
+        `;
+    } catch (error) {
         console.error(error);
-
-        document.getElementById("status").innerHTML =
-            "❌ Không tải được dữ liệu";
-
+        document.getElementById("status").innerHTML = `
+            <div class="info-card-main" style="color: #ef4444;">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span>Không tải được dữ liệu. Kiểm tra kết nối mạng.</span>
+            </div>
+        `;
         document.querySelector("#contactsTable tbody").innerHTML =
-            `<tr>
-                <td colspan="5" class="loading">
-                    Không tải được file JSON. Kiểm tra lại URL.
-                </td>
-            </tr>`;
+            `<tr><td colspan="5" class="loading">Không tải được file JSON.</td></tr>`;
     }
 }
 
 function detectDepartments() {
-    departments =
-        [...new Set(
-            contacts
-            .map(c => c.dept)
-            .filter(Boolean)
-        )]
-        .sort();
+    departments = [...new Set(
+        contacts.map(c => c.dept).filter(Boolean)
+    )].sort();
 }
 
 function populateDepartments() {
-    const select =
-        document.getElementById("departmentFilter");
-
-    select.innerHTML =
-        '<option value="">-- Tất cả phòng ban --</option>';
-
+    const select = document.getElementById("departmentFilter");
+    select.innerHTML = '<option value="">-- Tất cả phòng ban --</option>';
     departments.forEach(dep => {
-        const option =
-            document.createElement("option");
-
+        const option = document.createElement("option");
         option.value = dep;
         option.textContent = dep;
-
         select.appendChild(option);
     });
 }
 
-function renderTable(data) {
-    const tbody =
-        document.querySelector("#contactsTable tbody");
+// ============================================
+// RENDER
+// ============================================
+function getInitials(name) {
+    if (!name) return "?";
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+    return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
+}
 
+function renderTable(data) {
+    currentFiltered = data;
+    const tbody = document.querySelector("#contactsTable tbody");
     tbody.innerHTML = "";
 
     if (data.length === 0) {
-        tbody.innerHTML =
-            `<tr>
-                <td colspan="5" class="loading">
-                    Không tìm thấy dữ liệu
-                </td>
-            </tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" class="loading">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <div>Không tìm thấy dữ liệu</div>
+        </td></tr>`;
         return;
     }
 
     data.forEach(item => {
-        const row =
-            document.createElement("tr");
+        const row = document.createElement("tr");
+        const initials = getInitials(item.name);
+        const phones = (item.phone || "").split(/[-;,]/).map(p => p.trim()).filter(Boolean);
+
+        // Tạo chuỗi phone với nút gọi
+        let phoneHtml = "";
+        if (phones.length > 0) {
+            phoneHtml = phones.map(p => {
+                const cleanPhone = p.replace(/[^\d+]/g, "");
+                return `<a href="tel:${cleanPhone}" class="phone-link"><i class="fa-solid fa-phone"></i> ${p}</a>`;
+            }).join("<br>");
+        }
 
         row.innerHTML = `
-            <td>${item.name || ""}</td>
-            <td>${item.dept || ""}</td>
-            <td>${item.title || ""}</td>
-            <td>${item.phone || ""}</td>
             <td>
-                ${
-                    item.email
-                    ? `<a href="mailto:${item.email}">${item.email}</a>`
-                    : ""
-                }
+                <span class="avatar">${initials}</span>
+                <span class="contact-name">${item.name || ""}</span>
             </td>
+            <td><span class="contact-dept">${item.dept || ""}</span></td>
+            <td><span class="contact-title">${item.title || ""}</span></td>
+            <td>${phoneHtml || '<span style="color:#cbd5e1">—</span>'}</td>
+            <td>${item.email ? `<a href="mailto:${item.email}" class="email-link"><i class="fa-solid fa-envelope"></i> ${item.email}</a>` : '<span style="color:#cbd5e1">—</span>'}</td>
         `;
-
         tbody.appendChild(row);
     });
 }
 
-function filterData() {
-    const search =
-        document
-        .getElementById("searchInput")
-        .value
-        .toLowerCase();
+// ============================================
+// FILTER
+// ============================================
+function removeVietnameseTones(str) {
+    return str.normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/g, 'd')
+        .replace(/Đ/g, 'D');
+}
 
-    const dep =
-        document
-        .getElementById("departmentFilter")
-        .value;
+function applyFilter() {
+    const search = removeVietnameseTones(
+        document.getElementById("searchInput").value.toLowerCase()
+    );
+    const dep = document.getElementById("departmentFilter").value;
 
-    const filtered =
-        contacts.filter(c => {
-            const text =
-            `${c.name}
-             ${c.dept}
-             ${c.title}
-             ${c.phone}
-             ${c.email}`
-            .toLowerCase();
+    let filtered = contacts.filter(c => {
+        const text = removeVietnameseTones(
+            `${c.name || ''} ${c.dept || ''} ${c.title || ''} ${c.phone || ''} ${c.email || ''}`.toLowerCase()
+        );
+        const matchSearch = text.includes(search);
+        const matchDep = dep ? c.dept === dep : true;
+        return matchSearch && matchDep;
+    });
 
-            const matchSearch = text.includes(search);
-            const matchDep = dep ? c.dept === dep : true;
-
-            return matchSearch && matchDep;
+    if (sortField) {
+        filtered.sort((a, b) => {
+            const va = removeVietnameseTones((a[sortField] || '').toLowerCase());
+            const vb = removeVietnameseTones((b[sortField] || '').toLowerCase());
+            return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
         });
+    }
 
     renderTable(filtered);
 }
 
-document
-.getElementById("searchInput")
-.addEventListener("keyup", filterData);
+function sortBy(field) {
+    if (sortField === field) {
+        sortAsc = !sortAsc;
+    } else {
+        sortField = field;
+        sortAsc = true;
+    }
+    applyFilter();
+}
 
-document
-.getElementById("departmentFilter")
-.addEventListener("change", filterData);
+// ============================================
+// EVENTS
+// ============================================
+let searchTimeout;
+document.getElementById("searchInput").addEventListener("input", () => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(applyFilter, 200);
+});
 
+document.getElementById("departmentFilter").addEventListener("change", applyFilter);
+
+// Back to top
+window.addEventListener("scroll", () => {
+    const btn = document.getElementById("backToTop");
+    if (window.scrollY > 400) btn.classList.add("show");
+    else btn.classList.remove("show");
+});
+
+// Load
 loadData();
 </script>
 
