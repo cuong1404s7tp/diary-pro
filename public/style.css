@@ -210,10 +210,7 @@ body {
     margin: 0;
 }
 
-.app-title i {
-    color: var(--primary);
-    font-size: 24px;
-}
+.app-title i { color: var(--primary); font-size: 24px; }
 
 .server-indicator {
     font-size: 12px;
@@ -600,7 +597,7 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 .small { font-size: 0.875rem; }
 
 /* ================================================
-   MOBILE NAVIGATION - BOTTOM BAR (≤ 768px)
+   MOBILE BOTTOM NAV (CHUYÊN NGHIỆP)
    ================================================ */
 .mobile-bottom-nav {
     display: none;
@@ -608,12 +605,14 @@ textarea.form-control { resize: vertical; min-height: 100px; }
     bottom: 0;
     left: 0;
     right: 0;
-    background: white;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    background-color: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 -6px 24px rgba(15, 23, 42, 0.12);
     z-index: 999;
-    border-top: 1px solid #f1f5f9;
-    padding: 6px 0;
-    padding-bottom: calc(6px + env(safe-area-inset-bottom, 0));
+    border-top: 1px solid #e2e8f0;
+    padding: 8px 0 6px;
+    padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 
 .mobile-bottom-nav ul {
@@ -621,11 +620,15 @@ textarea.form-control { resize: vertical; min-height: 100px; }
     list-style: none;
     justify-content: space-around;
     align-items: stretch;
+    margin: 0;
+    padding: 0 4px;
+    gap: 2px;
 }
 
 .mobile-bottom-nav li {
     flex: 1;
     text-align: center;
+    min-width: 0;
 }
 
 .mobile-bottom-nav a {
@@ -633,55 +636,73 @@ textarea.form-control { resize: vertical; min-height: 100px; }
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3px;
-    padding: 6px 4px;
+    gap: 4px;
+    padding: 8px 4px;
     color: #94a3b8;
     text-decoration: none;
     font-size: 10px;
     font-weight: 600;
-    transition: color 0.2s;
+    transition: all 0.25s ease;
     position: relative;
+    border-radius: 10px;
+    letter-spacing: 0.2px;
 }
 
 .mobile-bottom-nav a i {
-    font-size: 18px;
-    transition: transform 0.2s;
+    font-size: 19px;
+    transition: transform 0.25s ease, color 0.25s ease;
 }
 
-.mobile-bottom-nav a.active {
-    color: var(--primary);
+.mobile-bottom-nav a span {
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
+
+.mobile-bottom-nav a:hover { color: #64748b; }
+
+.mobile-bottom-nav a.active { color: var(--primary); }
 
 .mobile-bottom-nav a.active i {
-    transform: scale(1.1);
+    transform: translateY(-2px) scale(1.15);
+    color: var(--primary);
 }
 
 .mobile-bottom-nav a.active::before {
     content: '';
     position: absolute;
-    top: 0;
+    top: -2px;
     left: 50%;
     transform: translateX(-50%);
-    width: 24px;
+    width: 28px;
     height: 3px;
-    background: var(--primary);
-    border-radius: 0 0 3px 3px;
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 8px rgba(0, 86, 179, 0.4);
+}
+
+.mobile-bottom-nav a.active span {
+    color: var(--primary);
+    font-weight: 700;
 }
 
 /* ================================================
    MOBILE RESPONSIVE (≤ 768px)
    ================================================ */
 @media (max-width: 768px) {
-    /* Ẩn sidebar desktop */
-    .sidebar { display: none; }
+    /* ẨN HOÀN TOÀN sidebar trên mobile */
+    .sidebar { display: none !important; }
+
     .main-content {
-        margin-left: 0;
+        margin-left: 0 !important;
         padding: 12px;
-        padding-bottom: 80px; /* Chừa chỗ cho bottom nav */
+        padding-bottom: 85px; /* Chừa chỗ cho bottom nav */
     }
 
-    /* Hiện bottom nav */
-    .mobile-bottom-nav { display: block; }
+    .mobile-bottom-nav { display: block !important; }
 
     .app-container { border-radius: 10px; }
 
@@ -739,10 +760,7 @@ textarea.form-control { resize: vertical; min-height: 100px; }
         margin-bottom: 8px;
     }
 
-    .form-control {
-        font-size: 16px;
-        padding: 12px 14px;
-    }
+    .form-control { font-size: 16px; padding: 12px 14px; }
 
     .btn-main { font-size: 14px; padding: 13px; }
 
@@ -773,7 +791,7 @@ textarea.form-control { resize: vertical; min-height: 100px; }
    MOBILE NHỎ (≤ 480px)
    ================================================ */
 @media (max-width: 480px) {
-    .main-content { padding: 8px; padding-bottom: 80px; }
+    .main-content { padding: 8px; padding-bottom: 85px; }
 
     .app-container { border-radius: 8px; }
 

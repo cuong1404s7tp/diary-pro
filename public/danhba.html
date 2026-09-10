@@ -29,11 +29,11 @@
         /* ============ SIDEBAR ============ */
         .sidebar {
             width: var(--sidebar-width);
-            background-color: #0f172a;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
             color: #cbd5e1;
             display: flex;
             flex-direction: column;
-            box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
             position: fixed;
             top: 0;
             left: 0;
@@ -44,7 +44,7 @@
 
         .sidebar-header {
             padding: 24px;
-            border-bottom: 1px solid #1e293b;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .brand {
@@ -106,9 +106,9 @@
         .nav-item:hover { background-color: #1e293b; color: white; }
 
         .nav-item-active {
-            background-color: #2563eb;
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
             color: white;
-            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
         }
 
         .nav-item-admin { color: #fb923c; }
@@ -116,7 +116,7 @@
 
         .sidebar-footer {
             padding: 16px;
-            border-top: 1px solid #1e293b;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
             background-color: rgba(15, 23, 42, 0.5);
             display: flex;
             align-items: center;
@@ -127,7 +127,8 @@
 
         .user-avatar {
             width: 32px; height: 32px; border-radius: 6px;
-            background-color: #2563eb; color: white;
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: white;
             display: flex; align-items: center; justify-content: center;
             font-size: 12px; font-weight: 700; flex-shrink: 0;
         }
@@ -173,14 +174,8 @@
             gap: 12px;
         }
 
-        .page-title i {
-            font-size: 32px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .page-title i { font-size: 32px; }
 
-        /* Info card */
         .info-card {
             background: linear-gradient(135deg, #ffffff, #f8fbff);
             border-radius: 12px;
@@ -204,10 +199,7 @@
             font-size: 15px;
         }
 
-        .info-card-main i {
-            font-size: 20px;
-            color: var(--primary);
-        }
+        .info-card-main i { font-size: 20px; color: var(--primary); }
 
         .info-card-stats {
             display: flex;
@@ -218,7 +210,6 @@
 
         .info-card-stats span strong { color: var(--primary); }
 
-        /* Controls */
         .controls {
             background: white;
             border-radius: 12px;
@@ -255,9 +246,7 @@
             width: 100%;
         }
 
-        .search-wrapper input {
-            padding-left: 40px;
-        }
+        .search-wrapper input { padding-left: 40px; }
 
         .controls input:focus, .controls select:focus {
             border-color: var(--primary);
@@ -266,7 +255,6 @@
 
         .controls select { flex: 1; min-width: 200px; cursor: pointer; }
 
-        /* Table */
         .table-container {
             background: white;
             border-radius: 12px;
@@ -274,10 +262,7 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+        table { width: 100%; border-collapse: collapse; }
 
         thead th {
             background: var(--primary);
@@ -291,7 +276,6 @@
             white-space: nowrap;
             cursor: pointer;
             user-select: none;
-            transition: background 0.2s;
         }
 
         thead th:hover { background: #0a3d8f; }
@@ -308,20 +292,9 @@
         tbody tr:hover { background: #f5f9ff; }
         tbody tr:last-child td { border-bottom: none; }
 
-        .contact-name {
-            font-weight: 600;
-            color: #1e293b;
-        }
-
-        .contact-dept {
-            color: #64748b;
-            font-size: 13px;
-        }
-
-        .contact-title {
-            color: #475569;
-            font-size: 13px;
-        }
+        .contact-name { font-weight: 600; color: #1e293b; }
+        .contact-dept { color: #64748b; font-size: 13px; }
+        .contact-title { color: #475569; font-size: 13px; }
 
         .phone-link, .email-link {
             color: var(--primary);
@@ -340,7 +313,6 @@
 
         .phone-link i { font-size: 11px; opacity: 0.6; }
 
-        /* Avatar initials */
         .avatar {
             display: inline-flex;
             width: 32px;
@@ -357,7 +329,6 @@
             flex-shrink: 0;
         }
 
-        /* Loading */
         .loading {
             text-align: center;
             padding: 60px 20px;
@@ -366,25 +337,101 @@
 
         .loading i { font-size: 32px; margin-bottom: 12px; }
 
-        /* ============ MOBILE ============ */
-        @media (max-width: 768px) {
-            :root { --sidebar-width: 0px; }
+        /* ============ MOBILE BOTTOM NAV ============ */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 -6px 24px rgba(15, 23, 42, 0.12);
+            z-index: 999;
+            border-top: 1px solid #e2e8f0;
+            padding: 8px 0 6px;
+            padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
 
-            .sidebar { width: 70px; }
-            .sidebar-header .brand span,
-            .sidebar-header .brand-sub,
-            .nav-group,
-            .nav-item span,
-            .user-details { display: none; }
-            .sidebar-header { padding: 16px 8px; }
-            .nav-item { justify-content: center; padding: 14px 8px; }
-            .sidebar-footer { justify-content: center; }
-            .logout-btn { display: none; }
+        .mobile-bottom-nav ul {
+            display: flex;
+            list-style: none;
+            justify-content: space-around;
+            align-items: stretch;
+            margin: 0;
+            padding: 0 4px;
+            gap: 2px;
+        }
+
+        .mobile-bottom-nav li { flex: 1; text-align: center; min-width: 0; }
+
+        .mobile-bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 8px 4px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 600;
+            transition: all 0.25s ease;
+            position: relative;
+            border-radius: 10px;
+        }
+
+        .mobile-bottom-nav a i {
+            font-size: 19px;
+            transition: transform 0.25s ease, color 0.25s ease;
+        }
+
+        .mobile-bottom-nav a span {
+            font-size: 10px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        .mobile-bottom-nav a.active { color: var(--primary); }
+
+        .mobile-bottom-nav a.active i {
+            transform: translateY(-2px) scale(1.15);
+            color: var(--primary);
+        }
+
+        .mobile-bottom-nav a.active::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 28px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 2px 8px rgba(13, 71, 161, 0.4);
+        }
+
+        .mobile-bottom-nav a.active span {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* ============ MOBILE (≤768px) ============ */
+        @media (max-width: 768px) {
+            .sidebar { display: none !important; }
 
             .main-content {
-                margin-left: 70px;
+                margin-left: 0 !important;
                 padding: 12px;
+                padding-bottom: 85px;
             }
+
+            .mobile-bottom-nav { display: block; }
 
             .page-title { font-size: 20px; }
             .page-title i { font-size: 24px; }
@@ -401,25 +448,17 @@
                 flex-wrap: wrap;
             }
 
-            .controls {
-                flex-direction: column;
-                padding: 12px;
-            }
-
+            .controls { flex-direction: column; padding: 12px; }
             .search-wrapper { min-width: unset; }
             .controls input, .controls select { min-width: unset; }
 
-            /* Convert table to cards */
             .table-container {
                 background: transparent;
                 box-shadow: none;
                 border-radius: 0;
             }
 
-            table, thead, tbody, th, td, tr {
-                display: block;
-            }
-
+            table, thead, tbody, th, td, tr { display: block; }
             thead { display: none; }
 
             tbody tr {
@@ -480,22 +519,19 @@
         }
 
         @media (max-width: 480px) {
-            .main-content { padding: 8px; }
+            .main-content { padding: 8px; padding-bottom: 85px; }
             .page-title { font-size: 18px; }
             tbody tr { padding: 12px; }
-            tbody td:before {
-                min-width: 80px;
-                font-size: 10px;
-            }
+            tbody td:before { min-width: 80px; font-size: 10px; }
         }
 
         /* Back to top */
         .back-to-top {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 48px;
-            height: 48px;
+            bottom: 90px;
+            right: 16px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             background: var(--primary);
             color: white;
@@ -505,15 +541,16 @@
             display: none;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 16px;
             transition: all 0.2s;
             z-index: 50;
         }
 
         .back-to-top.show { display: flex; }
-        .back-to-top:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
+        .back-to-top:hover { background: var(--primary-light); }
+
+        @media (min-width: 769px) {
+            .back-to-top { bottom: 24px; right: 24px; }
         }
     </style>
 </head>
@@ -629,25 +666,54 @@
     </div>
 </main>
 
+<!-- ============ MOBILE BOTTOM NAV ============ -->
+<nav class="mobile-bottom-nav">
+    <ul>
+        <li>
+            <a href="/">
+                <i class="fa-solid fa-house"></i>
+                <span>Trang chủ</span>
+            </a>
+        </li>
+        <li>
+            <a href="/lichhop">
+                <i class="fa-solid fa-calendar-day"></i>
+                <span>Lịch</span>
+            </a>
+        </li>
+        <li>
+            <a href="/danhba" class="active">
+                <i class="fa-solid fa-address-book"></i>
+                <span>Danh bạ</span>
+            </a>
+        </li>
+        <li>
+            <a href="/english-mem">
+                <i class="fa-solid fa-language"></i>
+                <span>English</span>
+            </a>
+        </li>
+        <li>
+            <a href="/finance">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>Tài chính</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
 <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
     <i class="fa-solid fa-arrow-up"></i>
 </button>
 
 <script>
-// ============================================
-// DATA URL
-// ============================================
 const DATA_URL = "https://raw.githubusercontent.com/cuong1404s7tp/danhba-noibo/refs/heads/main/danh_ba_phong_ban_chuan.json";
 
 let contacts = [];
 let departments = [];
-let currentFiltered = [];
 let sortField = null;
 let sortAsc = true;
 
-// ============================================
-// LOAD DATA
-// ============================================
 async function loadData() {
     try {
         const response = await fetch(DATA_URL);
@@ -672,11 +738,9 @@ async function loadData() {
         document.getElementById("status").innerHTML = `
             <div class="info-card-main" style="color: #ef4444;">
                 <i class="fa-solid fa-circle-exclamation"></i>
-                <span>Không tải được dữ liệu. Kiểm tra kết nối mạng.</span>
+                <span>Không tải được dữ liệu.</span>
             </div>
         `;
-        document.querySelector("#contactsTable tbody").innerHTML =
-            `<tr><td colspan="5" class="loading">Không tải được file JSON.</td></tr>`;
     }
 }
 
@@ -697,9 +761,6 @@ function populateDepartments() {
     });
 }
 
-// ============================================
-// RENDER
-// ============================================
 function getInitials(name) {
     if (!name) return "?";
     const parts = name.trim().split(/\s+/);
@@ -708,7 +769,6 @@ function getInitials(name) {
 }
 
 function renderTable(data) {
-    currentFiltered = data;
     const tbody = document.querySelector("#contactsTable tbody");
     tbody.innerHTML = "";
 
@@ -725,7 +785,6 @@ function renderTable(data) {
         const initials = getInitials(item.name);
         const phones = (item.phone || "").split(/[-;,]/).map(p => p.trim()).filter(Boolean);
 
-        // Tạo chuỗi phone với nút gọi
         let phoneHtml = "";
         if (phones.length > 0) {
             phoneHtml = phones.map(p => {
@@ -748,9 +807,6 @@ function renderTable(data) {
     });
 }
 
-// ============================================
-// FILTER
-// ============================================
 function removeVietnameseTones(str) {
     return str.normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
@@ -794,9 +850,6 @@ function sortBy(field) {
     applyFilter();
 }
 
-// ============================================
-// EVENTS
-// ============================================
 let searchTimeout;
 document.getElementById("searchInput").addEventListener("input", () => {
     clearTimeout(searchTimeout);
@@ -805,14 +858,12 @@ document.getElementById("searchInput").addEventListener("input", () => {
 
 document.getElementById("departmentFilter").addEventListener("change", applyFilter);
 
-// Back to top
 window.addEventListener("scroll", () => {
     const btn = document.getElementById("backToTop");
     if (window.scrollY > 400) btn.classList.add("show");
     else btn.classList.remove("show");
 });
 
-// Load
 loadData();
 </script>
 

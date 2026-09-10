@@ -2,26 +2,21 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Diary Pro - SAT-COORD CMS</title>
 
-    <!-- Tailwind CSS (cho sidebar) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Bootstrap 5 (cho phần Diary Pro) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Font Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- BỐ CỤC: SIDEBAR + MAIN -->
 <div class="layout-wrapper">
 
-    <!-- ============ SIDEBAR ============ -->
+    <!-- ============ SIDEBAR (CHỈ HIỆN DESKTOP) ============ -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <div class="brand">
@@ -56,10 +51,11 @@
                 <span>Từ vựng chuyên ngành</span>
             </a>
 
-<a href="/danhba" class="nav-item">
-    <i class="fa-solid fa-address-book"></i>
-    <span>Danh bạ nội bộ</span>
-</a>
+            <a href="/danhba" class="nav-item">
+                <i class="fa-solid fa-address-book"></i>
+                <span>Danh bạ nội bộ</span>
+            </a>
+
             <a href="/admin" target="_blank" class="nav-item nav-item-admin">
                 <i class="fa-solid fa-user-gear"></i>
                 <span>Hệ thống Admin</span>
@@ -84,7 +80,6 @@
     <main class="main-content">
         <div class="app-container">
 
-            <!-- HEADER -->
             <div class="app-header">
                 <div class="header-top">
                     <h3 class="app-title">
@@ -104,8 +99,7 @@
                             <li><a href="#"><i class="fa fa-book text-warning"></i> Sổ tay học tập</a></li>
                             <li><a href="#"><i class="fa fa-quote-left text-muted"></i> Recording</a></li>
                             <li><a href="#"><i class="fa fa-headphones text-muted"></i> Listening</a></li>
-                           
-                            <li><a href="/danhba"><i class="fa fa-address-book"></i> Danh bạ nội bộ</a></li>
+                            <li><a href="/danhba"><i class="fa fa-address-book text-primary"></i> Danh bạ nội bộ</a></li>
                             <li class="dropdown-divider-custom"></li>
                             <li><a href="#" class="text-danger" onclick="clearAllData()"><i class="fa fa-trash-alt"></i> Xóa sạch dữ liệu máy</a></li>
                             <li><a href="#" class="text-primary fw-bold" onclick="backupToServer()"><i class="fa fa-cloud-upload-alt"></i> Sao lưu lên Cloud</a></li>
@@ -113,7 +107,6 @@
                     </div>
                 </div>
 
-                <!-- TABS -->
                 <ul class="tabs-nav">
                     <li>
                         <button class="tab-btn tab-active" id="tab-ca-nhan" onclick="switchMode('ca_nhan')">
@@ -143,13 +136,11 @@
                 </ul>
             </div>
 
-            <!-- SEARCH -->
             <div class="search-box">
                 <i class="fa fa-search"></i>
                 <input type="text" id="search-input" class="form-control" placeholder="Tìm kiếm theo nội dung hoặc ngày (VD: 2026-03)..." oninput="renderUI()">
             </div>
 
-            <!-- FORM -->
             <div class="form-section">
                 <div class="row g-2">
                     <div class="col-md-4"><input type="date" id="input-date" class="form-control"></div>
@@ -167,7 +158,7 @@
                 </button>
 
                 <div class="row g-2 mt-2">
-                    <div class="col-4"><button class="btn btn-outline-primary btn-tool w-100" onclick="fetchDataFromServer()"><i class="fa fa-sync"></i> Đồng bộ Cloud</button></div>
+                    <div class="col-4"><button class="btn btn-outline-primary btn-tool w-100" onclick="fetchDataFromServer()"><i class="fa fa-sync"></i> Đồng bộ</button></div>
                     <div class="col-4"><button class="btn btn-outline-info btn-tool w-100" onclick="exportToJSON()"><i class="fa fa-file-export"></i> Xuất JSON</button></div>
                     <div class="col-4">
                         <button class="btn btn-outline-secondary btn-tool w-100" onclick="document.getElementById('file-input').click()"><i class="fa fa-file-import"></i> Nhập JSON</button>
@@ -176,7 +167,6 @@
                 </div>
             </div>
 
-            <!-- FILTER -->
             <div class="filter-section">
                 <div class="filter-row">
                     <select id="filter-time" class="form-select form-select-sm" onchange="toggleFilterUI()">
@@ -208,16 +198,50 @@
                 </div>
             </div>
 
-            <!-- LIST -->
             <div id="data-list" class="p-3"></div>
         </div>
     </main>
 </div>
 
+<!-- ============ MOBILE BOTTOM NAV ============ -->
+<nav class="mobile-bottom-nav">
+    <ul>
+        <li>
+            <a href="/" class="active">
+                <i class="fa-solid fa-house"></i>
+                <span>Trang chủ</span>
+            </a>
+        </li>
+        <li>
+            <a href="/lichhop">
+                <i class="fa-solid fa-calendar-day"></i>
+                <span>Lịch</span>
+            </a>
+        </li>
+        <li>
+            <a href="/danhba">
+                <i class="fa-solid fa-address-book"></i>
+                <span>Danh bạ</span>
+            </a>
+        </li>
+        <li>
+            <a href="/english-mem">
+                <i class="fa-solid fa-language"></i>
+                <span>English</span>
+            </a>
+        </li>
+        <li>
+            <a href="/finance">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>Tài chính</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="app.js"></script>
 <script>
-    // Toggle dropdown hệ thống
     function toggleDropdown(e) {
         e.stopPropagation();
         document.getElementById('dropdown-menu').classList.toggle('show');
