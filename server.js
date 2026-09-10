@@ -6,7 +6,7 @@ const { createClient } = require('@supabase/supabase-js');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const SUPABASE_URL = process.env.SUPABASE_URL || 'https://kzgswoguanoonawipswdw.supabase.co';
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://kzgswoguanoonawipsdw.supabase.co';
 const SUPABASE_KEY = process.env.SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6Z3N3b2d1YW5vb25hd2lwc2R3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwMzUzMzcsImV4cCI6MjEwNDYxMTMzN30.QBkNnqbKWQoLMsgVliXtl1MEzD3je42DRApain4sAAM';
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
