@@ -81,6 +81,83 @@ app.post('/api/diaries', async (req, res) => {
     }
 });
 
+
+// ============================================
+// API LỊCH HỌP
+// ============================================
+
+// Lấy danh sách cuộc họp
+app.get('/api/meetings', async (req, res) => {
+    try {
+        const { data, error } = await supabase
+            .from('meetings')
+            .select('*')
+            .order('start_date', { ascending: false });
+
+        if (error) throw error;
+
+        const result = (data || []).map(m => ({
+            id: m.meeting_id,
+            title: m.title,
+            startDate: m.start_date,
+            endDate: m.end_date,
+            time: m.time,
+            location: m.location,
+            status: m.status,
+            note: m.note
+        }));
+
+        res.json(result);
+    } catch (err) {
+        console.error('❌ Lỗi GET meetings:', err.message);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Lưu cuộc họp (overwrite toàn bộ)
+app.post('/api/meetings', async (req, res) => {
+    try {
+        const meetings = req.body;
+
+        if (!Array.isArray(meetings)) {
+            return res.status(400).json({ error: 'Dữ liệu phải là mảng' });
+        }
+
+        const { error: delErr } = await supabase
+            .from('meetings')
+            .delete()
+            .neq('id', 0);
+
+        if (delErr) throw delErr;
+
+        if (meetings.length > 0) {
+            const docs = meetings.map(m => ({
+                meeting_id: String(m.id),
+                title: m.title,
+                start_date: m.startDate,
+                end_date: m.endDate || null,
+                time: m.time || null,
+                location: m.location || '',
+                status: m.status || 'sap_dien_ra',
+                note: m.note || '',
+                user_id: 'default_user'
+            }));
+
+            const { error: insErr } = await supabase
+                .from('meetings')
+                .insert(docs);
+
+            if (insErr) throw insErr;
+        }
+
+        console.log('✅ Đã lưu', meetings.length, 'cuộc họp lên Supabase');
+        res.status(201).json({ message: 'Đã lưu', count: meetings.length });
+    } catch (err) {
+        console.error('❌ Lỗi POST meetings:', err.message);
+        res.status(500).json({ error: err.message });
+    }
+});
+
 app.post('/api/sync', (req, res) => {
     res.json({ message: 'Đồng bộ Cloud thành công!' });
 });
@@ -105,7 +182,84 @@ app.get('/finance', (req, res) => {
 });
 
 app.get('/english-mem', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+
+
+   // ============================================
+// API LỊCH HỌP
+// ============================================
+
+// Lấy danh sách cuộc họp
+app.get('/api/meetings', async (req, res) => {
+    try {
+        const { data, error } = await supabase
+            .from('meetings')
+            .select('*')
+            .order('start_date', { ascending: false });
+
+        if (error) throw error;
+
+        const result = (data || []).map(m => ({
+            id: m.meeting_id,
+            title: m.title,
+            startDate: m.start_date,
+            endDate: m.end_date,
+            time: m.time,
+            location: m.location,
+            status: m.status,
+            note: m.note
+        }));
+
+        res.json(result);
+    } catch (err) {
+        console.error('❌ Lỗi GET meetings:', err.message);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Lưu cuộc họp (overwrite toàn bộ)
+app.post('/api/meetings', async (req, res) => {
+    try {
+        const meetings = req.body;
+
+        if (!Array.isArray(meetings)) {
+            return res.status(400).json({ error: 'Dữ liệu phải là mảng' });
+        }
+
+        const { error: delErr } = await supabase
+            .from('meetings')
+            .delete()
+            .neq('id', 0);
+
+        if (delErr) throw delErr;
+
+        if (meetings.length > 0) {
+            const docs = meetings.map(m => ({
+                meeting_id: String(m.id),
+                title: m.title,
+                start_date: m.startDate,
+                end_date: m.endDate || null,
+                time: m.time || null,
+                location: m.location || '',
+                status: m.status || 'sap_dien_ra',
+                note: m.note || '',
+                user_id: 'default_user'
+            }));
+
+            const { error: insErr } = await supabase
+                .from('meetings')
+                .insert(docs);
+
+            if (insErr) throw insErr;
+        }
+
+        console.log('✅ Đã lưu', meetings.length, 'cuộc họp lên Supabase');
+        res.status(201).json({ message: 'Đã lưu', count: meetings.length });
+    } catch (err) {
+        console.error('❌ Lỗi POST meetings:', err.message);
+        res.status(500).json({ error: err.message });
+    }
+});
+ res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/admin', (req, res) => {

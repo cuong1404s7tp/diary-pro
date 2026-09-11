@@ -101,7 +101,6 @@
         }
 
         .nav-item i { width: 20px; text-align: center; }
-
         .nav-item:hover { background-color: #1e293b; color: white; }
 
         .nav-item-active {
@@ -132,11 +131,7 @@
             font-size: 12px; font-weight: 700; flex-shrink: 0;
         }
 
-        .user-name {
-            font-size: 12px; font-weight: 700; color: white;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-
+        .user-name { font-size: 12px; font-weight: 700; color: white; }
         .user-role { font-size: 10px; color: #64748b; font-style: italic; }
 
         .logout-btn {
@@ -174,7 +169,19 @@
 
         .page-title i { font-size: 32px; }
 
-        /* Controls */
+        .sync-status {
+            font-size: 12px;
+            color: #10b981;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: auto;
+            padding: 6px 12px;
+            background: #ecfdf5;
+            border-radius: 20px;
+        }
+
         .controls {
             background: white;
             border-radius: 12px;
@@ -186,7 +193,7 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
 
-        .controls input, .controls select, .controls button {
+        .controls input, .controls select {
             border: 1px solid #d0d7de;
             border-radius: 8px;
             padding: 11px 14px;
@@ -241,25 +248,9 @@
             color: #94a3b8;
         }
 
-        .empty-state i {
-            font-size: 64px;
-            opacity: 0.3;
-            margin-bottom: 16px;
-            display: block;
-        }
+        .empty-state i { font-size: 64px; opacity: 0.3; margin-bottom: 16px; display: block; }
+        .empty-state h3 { font-size: 18px; color: #64748b; margin-bottom: 8px; }
 
-        .empty-state h3 {
-            font-size: 18px;
-            color: #64748b;
-            margin-bottom: 8px;
-        }
-
-        .empty-state p {
-            font-size: 14px;
-            color: #94a3b8;
-        }
-
-        /* Timeline items */
         .timeline-item {
             position: relative;
             padding-left: 40px;
@@ -267,10 +258,7 @@
             border-left: 2px solid #e2e8f0;
         }
 
-        .timeline-item:last-child {
-            padding-bottom: 0;
-            border-left-color: transparent;
-        }
+        .timeline-item:last-child { padding-bottom: 0; border-left-color: transparent; }
 
         .timeline-item::before {
             content: '';
@@ -321,23 +309,173 @@
             font-size: 13px;
             color: #64748b;
             margin-top: 8px;
-        }
-
-        .timeline-meta span {
-            display: inline-flex;
             align-items: center;
-            gap: 6px;
         }
 
+        .timeline-meta span { display: inline-flex; align-items: center; gap: 6px; }
         .timeline-meta i { color: var(--primary); }
+
+        .btn-delete {
+            margin-left: auto;
+            background: transparent;
+            border: 1px solid #ef4444;
+            color: #ef4444;
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .btn-delete:hover { background: #fee2e2; }
+
+        /* ============ MODAL ============ */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.show { display: flex; }
+
+        .modal {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            color: #94a3b8;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover { background: #f1f5f9; color: #ef4444; }
+
+        .form-group { margin-bottom: 14px; }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        .form-label .required { color: #ef4444; }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #d0d7de;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1);
+        }
+
+        .form-textarea { min-height: 70px; resize: vertical; }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #d0d7de;
+            background: white;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            color: #64748b;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel:hover { background: #f8fafc; }
+
+        .btn-save {
+            flex: 2;
+            padding: 12px;
+            border: none;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            box-shadow: 0 4px 12px rgba(13, 71, 161, 0.25);
+            transition: all 0.2s;
+        }
+
+        .btn-save:hover {
+            background: linear-gradient(135deg, #0a3d8f, #1565c0);
+            transform: translateY(-1px);
+        }
 
         /* ============ MOBILE BOTTOM NAV ============ */
         .mobile-bottom-nav {
             display: none;
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             background-color: rgba(255, 255, 255, 0.98);
             box-shadow: 0 -6px 24px rgba(15, 23, 42, 0.12);
             z-index: 999;
@@ -378,12 +516,6 @@
             transition: transform 0.25s;
         }
 
-        .mobile-bottom-nav a span {
-            font-size: 10px;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
         .mobile-bottom-nav a.active { color: var(--primary); }
 
         .mobile-bottom-nav a.active i {
@@ -418,10 +550,9 @@
             .page-title { font-size: 20px; }
             .page-title i { font-size: 24px; }
 
-            .controls {
-                flex-direction: column;
-                padding: 12px;
-            }
+            .sync-status { font-size: 11px; padding: 5px 10px; }
+
+            .controls { flex-direction: column; padding: 12px; }
 
             .controls input,
             .controls select,
@@ -433,6 +564,12 @@
 
             .timeline-container { padding: 16px; }
             .timeline-item { padding-left: 30px; }
+
+            .timeline-meta { font-size: 12px; gap: 10px; }
+
+            .btn-delete { font-size: 11px; padding: 3px 8px; }
+
+            .form-row { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -498,7 +635,7 @@
     </div>
 </aside>
 
-<!-- ============ MAIN CONTENT ============ -->
+<!-- ============ MAIN ============ -->
 <main class="main-content">
 
     <div class="page-header">
@@ -506,17 +643,21 @@
             <i class="fa-solid fa-calendar-day"></i>
             LỊCH HỌP & TIMELINE
         </h1>
+        <span class="sync-status" id="syncStatus">
+            <i class="fa-solid fa-cloud"></i>
+            <span>Đang tải...</span>
+        </span>
     </div>
 
     <div class="controls">
         <input type="text" id="searchInput" placeholder="Tìm kiếm cuộc họp...">
         <select id="statusFilter">
             <option value="">-- Tất cả trạng thái --</option>
-            <option value="sap_dien_ra">Sắp diễn ra</option>
-            <option value="dang_dien_ra">Đang diễn ra</option>
-            <option value="da_ket_thuc">Đã kết thúc</option>
+            <option value="sap_dien_ra">🟡 Sắp diễn ra</option>
+            <option value="dang_dien_ra">🟢 Đang diễn ra</option>
+            <option value="da_ket_thuc">⚪ Đã kết thúc</option>
         </select>
-        <button class="btn-primary" onclick="showAddModal()">
+        <button class="btn-primary" onclick="openAddModal()">
             <i class="fa-solid fa-plus"></i> Thêm cuộc họp
         </button>
     </div>
@@ -524,11 +665,77 @@
     <div class="timeline-container" id="timelineContainer">
         <div class="empty-state">
             <i class="fa-solid fa-calendar-plus"></i>
-            <h3>Chưa có cuộc họp nào</h3>
-            <p>Bấm "Thêm cuộc họp" để bắt đầu</p>
+            <h3>Đang tải dữ liệu...</h3>
         </div>
     </div>
 </main>
+
+<!-- ============ MODAL ============ -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title">
+                <i class="fa-solid fa-calendar-plus"></i>
+                <span id="modalTitle">Thêm cuộc họp mới</span>
+            </h3>
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <form id="meetingForm" onsubmit="saveMeeting(event)">
+            <input type="hidden" id="meetingId">
+
+            <div class="form-group">
+                <label class="form-label">Tiêu đề <span class="required">*</span></label>
+                <input type="text" class="form-input" id="fTitle" required placeholder="VD: Họp nhóm dự án...">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Ngày bắt đầu <span class="required">*</span></label>
+                    <input type="date" class="form-input" id="fStartDate" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Ngày kết thúc</label>
+                    <input type="date" class="form-input" id="fEndDate">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Giờ</label>
+                    <input type="time" class="form-input" id="fTime" value="09:00">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Địa điểm</label>
+                    <input type="text" class="form-input" id="fLocation" placeholder="VD: Phòng A...">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Trạng thái</label>
+                <select class="form-select" id="fStatus">
+                    <option value="sap_dien_ra">🟡 Sắp diễn ra</option>
+                    <option value="dang_dien_ra">🟢 Đang diễn ra</option>
+                    <option value="da_ket_thuc">⚪ Đã kết thúc</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Ghi chú</label>
+                <textarea class="form-textarea" id="fNote" placeholder="Nội dung cuộc họp..."></textarea>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" onclick="closeModal()">Hủy</button>
+                <button type="submit" class="btn-save">
+                    <i class="fa-solid fa-floppy-disk"></i> Lưu & Đồng bộ Cloud
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <!-- ============ MOBILE BOTTOM NAV ============ -->
 <nav class="mobile-bottom-nav">
@@ -568,15 +775,40 @@
 
 <script>
 // ============================================
-// LỊCH HỌP - LOCAL STORAGE
+// STATE
 // ============================================
-let meetings = JSON.parse(localStorage.getItem('satcoord_meetings') || '[]');
+let meetings = [];
 
-function saveMeetings() {
-    localStorage.setItem('satcoord_meetings', JSON.stringify(meetings));
-    renderTimeline();
+// ============================================
+// HELPERS
+// ============================================
+function escapeHtml(text) {
+    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+    return String(text || '').replace(/[&<>"']/g, m => map[m]);
 }
 
+function formatDate(dateStr) {
+    if (!dateStr) return 'N/A';
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('vi-VN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function formatShortDate(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
+}
+
+function updateSyncStatus(text, isError = false) {
+    const el = document.getElementById('syncStatus');
+    el.innerHTML = `<i class="fa-solid ${isError ? 'fa-circle-exclamation' : 'fa-cloud'}"></i> <span>${text}</span>`;
+    el.style.background = isError ? '#fef2f2' : '#ecfdf5';
+    el.style.color = isError ? '#ef4444' : '#10b981';
+}
+
+// ============================================
+// RENDER
+// ============================================
 function renderTimeline() {
     const container = document.getElementById('timelineContainer');
     const search = document.getElementById('searchInput').value.toLowerCase().trim();
@@ -591,8 +823,7 @@ function renderTimeline() {
         return matchSearch && matchStatus;
     });
 
-    // Sort theo ngày
-    filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+    filtered.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
 
     if (filtered.length === 0) {
         container.innerHTML = `
@@ -611,65 +842,155 @@ function renderTimeline() {
         da_ket_thuc: '⚪ Đã kết thúc'
     };
 
-    container.innerHTML = filtered.map(m => `
-        <div class="timeline-item">
-            <div class="timeline-date">
-                <i class="fa-solid fa-calendar"></i> ${formatDate(m.date)}
-            </div>
-            <div class="timeline-card">
-                <div class="timeline-title">${escapeHtml(m.title || 'Không có tiêu đề')}</div>
-                ${m.note ? `<div style="color:#64748b;font-size:13px;margin-top:4px;">${escapeHtml(m.note)}</div>` : ''}
-                <div class="timeline-meta">
-                    ${m.time ? `<span><i class="fa-solid fa-clock"></i> ${m.time}</span>` : ''}
-                    ${m.location ? `<span><i class="fa-solid fa-location-dot"></i> ${escapeHtml(m.location)}</span>` : ''}
-                    <span><i class="fa-solid fa-circle-info"></i> ${statusLabel[m.status] || m.status}</span>
-                    <button onclick="deleteMeeting('${m.id}')" style="margin-left:auto;background:transparent;border:1px solid #ef4444;color:#ef4444;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:12px;">
-                        <i class="fa-solid fa-trash"></i> Xóa
-                    </button>
+    container.innerHTML = filtered.map(m => {
+        // Hiển thị khoảng thời gian
+        let dateRange = '';
+        if (m.endDate && m.endDate !== m.startDate) {
+            dateRange = `${formatShortDate(m.startDate)} → ${formatShortDate(m.endDate)}`;
+        } else {
+            dateRange = formatDate(m.startDate);
+        }
+
+        return `
+            <div class="timeline-item">
+                <div class="timeline-date">
+                    <i class="fa-solid fa-calendar"></i> ${dateRange}
+                </div>
+                <div class="timeline-card">
+                    <div class="timeline-title">${escapeHtml(m.title || 'Không có tiêu đề')}</div>
+                    ${m.note ? `<div style="color:#64748b;font-size:13px;margin-top:4px;">${escapeHtml(m.note)}</div>` : ''}
+                    <div class="timeline-meta">
+                        ${m.time ? `<span><i class="fa-solid fa-clock"></i> ${m.time}</span>` : ''}
+                        ${m.location ? `<span><i class="fa-solid fa-location-dot"></i> ${escapeHtml(m.location)}</span>` : ''}
+                        <span><i class="fa-solid fa-circle-info"></i> ${statusLabel[m.status] || m.status}</span>
+                        <button class="btn-delete" onclick="deleteMeeting('${m.id}')">
+                            <i class="fa-solid fa-trash"></i> Xóa
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
-function formatDate(dateStr) {
-    if (!dateStr) return 'N/A';
-    const d = new Date(dateStr);
-    return d.toLocaleDateString('vi-VN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+// ============================================
+// API
+// ============================================
+async function loadMeetings() {
+    updateSyncStatus('Đang tải...');
+    try {
+        const res = await fetch('/api/meetings');
+        if (!res.ok) throw new Error('Server error');
+        meetings = await res.json();
+        renderTimeline();
+        updateSyncStatus('Đã đồng bộ Cloud');
+    } catch (err) {
+        console.error('Lỗi load:', err);
+        updateSyncStatus('Lỗi kết nối Server', true);
+        meetings = [];
+        renderTimeline();
+    }
 }
 
-function escapeHtml(text) {
-    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-    return String(text).replace(/[&<>"']/g, m => map[m]);
+async function syncMeetings() {
+    updateSyncStatus('Đang lưu...');
+    try {
+        const res = await fetch('/api/meetings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(meetings)
+        });
+        if (!res.ok) throw new Error('Save failed');
+        updateSyncStatus('Đã lưu Cloud');
+    } catch (err) {
+        console.error('Lỗi save:', err);
+        updateSyncStatus('Lỗi lưu Cloud', true);
+    }
 }
 
-function showAddModal() {
-    const title = prompt('Tiêu đề cuộc họp:');
-    if (!title) return;
-    const date = prompt('Ngày (YYYY-MM-DD):', new Date().toISOString().split('T')[0]);
-    if (!date) return;
-    const time = prompt('Giờ (VD: 14:00):', '09:00');
-    const location = prompt('Địa điểm (VD: Phòng họp A):', '');
-    const status = prompt('Trạng thái (sap_dien_ra / dang_dien_ra / da_ket_thuc):', 'sap_dien_ra');
-    const note = prompt('Ghi chú:', '');
-
-    meetings.push({
-        id: 'm_' + Date.now(),
-        title, date, time, location, status, note
-    });
-    saveMeetings();
+// ============================================
+// MODAL
+// ============================================
+function openAddModal() {
+    document.getElementById('modalTitle').textContent = 'Thêm cuộc họp mới';
+    document.getElementById('meetingId').value = '';
+    document.getElementById('meetingForm').reset();
+    document.getElementById('fStartDate').value = new Date().toISOString().split('T')[0];
+    document.getElementById('fTime').value = '09:00';
+    document.getElementById('modalOverlay').classList.add('show');
 }
 
-function deleteMeeting(id) {
+function openEditModal(id) {
+    const m = meetings.find(x => x.id === id);
+    if (!m) return;
+    document.getElementById('modalTitle').textContent = 'Sửa cuộc họp';
+    document.getElementById('meetingId').value = m.id;
+    document.getElementById('fTitle').value = m.title || '';
+    document.getElementById('fStartDate').value = m.startDate || '';
+    document.getElementById('fEndDate').value = m.endDate || '';
+    document.getElementById('fTime').value = m.time || '09:00';
+    document.getElementById('fLocation').value = m.location || '';
+    document.getElementById('fStatus').value = m.status || 'sap_dien_ra';
+    document.getElementById('fNote').value = m.note || '';
+    document.getElementById('modalOverlay').classList.add('show');
+}
+
+function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('show');
+}
+
+// Đóng modal khi click ngoài
+document.getElementById('modalOverlay').addEventListener('click', e => {
+    if (e.target.id === 'modalOverlay') closeModal();
+});
+
+// ============================================
+// SAVE / DELETE
+// ============================================
+async function saveMeeting(e) {
+    e.preventDefault();
+
+    const id = document.getElementById('meetingId').value;
+    const data = {
+        id: id || 'm_' + Date.now(),
+        title: document.getElementById('fTitle').value.trim(),
+        startDate: document.getElementById('fStartDate').value,
+        endDate: document.getElementById('fEndDate').value || null,
+        time: document.getElementById('fTime').value,
+        location: document.getElementById('fLocation').value.trim(),
+        status: document.getElementById('fStatus').value,
+        note: document.getElementById('fNote').value.trim()
+    };
+
+    if (id) {
+        const idx = meetings.findIndex(m => m.id === id);
+        if (idx !== -1) meetings[idx] = data;
+    } else {
+        meetings.unshift(data);
+    }
+
+    closeModal();
+    renderTimeline();
+    await syncMeetings();
+}
+
+async function deleteMeeting(id) {
     if (!confirm('Xóa cuộc họp này?')) return;
     meetings = meetings.filter(m => m.id !== id);
-    saveMeetings();
+    renderTimeline();
+    await syncMeetings();
 }
 
+// ============================================
+// EVENTS
+// ============================================
 document.getElementById('searchInput').addEventListener('input', renderTimeline);
 document.getElementById('statusFilter').addEventListener('change', renderTimeline);
 
-renderTimeline();
+// ============================================
+// INIT
+// ============================================
+loadMeetings();
 </script>
 
 </body>
