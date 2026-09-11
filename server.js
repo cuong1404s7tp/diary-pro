@@ -97,7 +97,7 @@ app.get('/danhba', (req, res) => {
 });
 
 app.get('/lichhop', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'lichhop.html'));
 });
 
 app.get('/finance', (req, res) => {
